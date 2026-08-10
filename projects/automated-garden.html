@@ -49,22 +49,24 @@
       </div>
       <h1>automated garden</h1>
       <p class="project-subtitle">
-        A garden-scale SCADA system built on ESP32 microcontrollers and
-        Inductive Automation's Ignition platform. Designed as a hands-on
+        A garden-scale SCADA system built on ESP32 microcontrollers <s>and
+        Inductive Automation's Ignition platform</s> (potential to implement this for a larger garden-scale
+        project, decided against it for my 4 plants). Designed as a hands-on
         ICS/OT credential and a real working system to water my plants.
+        Is this the most complex ICS/OT project? No, it's meant to be my introduction to electronics,
+        and to that end it's fantastic.
       </p>
       <a class="project-link"
          href="https://github.com/AnotherNovice/GardenSCADA/tree/main"
          target="_blank"
          rel="noopener noreferrer">
-        view on github →  (not yet though, waiting on parts)
+        view on github
       </a>
     </div>
 
     <!-- ===================== IMAGE GALLERY =====================
-      Add your actual images by replacing the src placeholder paths.
-      Keep images in your repo under assets/images/garden/
-      or link to raw GitHub URLs if you store them in the project repo.
+      Keep images under assets/images/garden/
+      or link to raw GitHub URLs if stored in the project rep.
     -->
     <div class="image-gallery">
       
@@ -74,7 +76,7 @@
              loading="lazy" />
         <!--
           alt text: describes the image for screen readers and when
-          the image fails to load. Always write something meaningful.
+          the image fails to load.
           loading="lazy" defers loading until the image is near the
           viewport — improves page load speed.
         -->
@@ -83,14 +85,9 @@
 
       <figure>
         <img src="../assets/images/garden/Plants(1).jpg"
-             alt="My plants"
+             alt="My plants, small, two tomatoes and a pepper plant"
              loading="lazy" />
-        <!--
-          alt text: describes the image for screen readers and when
-          the image fails to load. Always write something meaningful.
-          loading="lazy" defers loading until the image is near the
-          viewport — improves page load speed.
-        -->
+      
         <figcaption>My plants</figcaption>
       </figure>
       <!--
@@ -99,12 +96,7 @@
         <img src="../assets/images/garden-placeholder.jpg"
              alt="ESP32 sensor node mounted in the garden"
              loading="lazy" />
-        <!--
-          alt text: describes the image for screen readers and when
-          the image fails to load. Always write something meaningful.
-          loading="lazy" defers loading until the image is near the
-          viewport — improves page load speed.
-        -->
+      
         <!--<figcaption>ESP32 sensor node — placeholder caption</figcaption>
       </figure>
       <figure>
@@ -118,39 +110,98 @@
 
     <hr class="section-divider" />
 
-    <h2>overview</h2>
+    <h2>Overview</h2>
     <p>
         I didn't want to have to travel to my grandmother's house (where the garden bed lives)
         every other day for watering and I wanted to remove the guesswork, so I thought: 
         "I'll get some mosture sensors and pumps, how hard could it be?"
-        As a bonus I figured this would be a great way to dive into Ignition and SCADA  systems.
-      <!-- Placeholder — describe what the project is and why you built it.
-      What problem does it solve? What was the motivation? -->
+        As a bonus I figured this would be a great way to dive into Ignition and SCADA systems.
+        Ironically, in the end, the plants are living on my patio.
+        The system waters four plants: two Roma tomatoes, a bell pepper, and garlic,
+         based on soil moisture rather than a fixed timer. An ESP32 checks moisture once a day (via 
+         the analog output of a capacitive moisture sensor that converts capacitance to a 12 bit number) 
+         and, if a plant's soil has dropped below its threshold, switches on a 12V peristaltic pump 
+         through a relay for 10 seconds, then checks the moisture level again and repeats until it is 
+         wet enough to be below the trigger.
+ 
+        Originally the plan was one sensor per plant. Towards the end, I discovered that the 
+        bulk-pack moisture sensors I'd bought didn't hold up in soil. They were finnicky,
+        only giving reasonable readings when held a certian way in the soil, left alone 
+        in soil, unreliable. With only two sensors I trusted (the originals I'd started with), 
+        and limited time left in my summer, I restructured the system: one sensor lives in a 
+        tomato plant and drives the watering decision for both tomatoes and the pepper, and a 
+        second sensor lives in the garlic and drives that pump independently. 
+        It's a compromise, the tomato/pepper group shares one soil reading rather than getting 
+        individual ones. It's a tradeoff made under the constraints, not an oversight. Ideally I 
+        would have two sensors per plant and average them for a well rounded reading, but my 8 pack 
+        wasn't preforming.
     </p>
 
-    <h2>stack</h2>
+    <h2>Stack</h2>
     <ul class="project-list">
-      <li><code>ESP32</code> — sensor nodes, WiFi connectivity</li>
-      <li><code>Ignition</code> — SCADA platform, HMI dashboards</li>
-      <li><code>MQTT</code> — messaging protocol between sensors and platform</li>
-     <!--- <li><code>placeholder</code> — add other tools as relevant</li> -->
+      <li><code>ESP32</code> — sensor nodes, runs logic for pumps, WiFi connectivity disabled for now, aspirations for cinnection
+      to data analytics, ignition on a larger build.</li>
+      <li><code>Arduino IDE</code>- where I was able to write (paste), tweak, and compile code for the ESP</li>
+      <li><code>Soldering Iron</code> - used as needed, used to connect wiring of different gauges</li>
     </ul>
 
-    <h2>what I learned</h2>
+    <h2>What I learned</h2>
     <p>
-        So far, I have learned significantly more about circuitry, the differences 
+        I have learned significantly more about circuitry, the differences 
         between available current and draw and the self limiting properties of Motor EMF. 
         I really like physics and science, learned as much as I could about it as a 
         kid and teen, and haven't had much natural science exposure in Columbia since 
-        my coursework is mainly math and CS. It's nice to be in the realm where they intersect.
-     <!--- Placeholder — what did building this teach you about ICS architecture,
-      networking, the gap between IT and OT security? --> 
-      July 
+        my coursework is mainly math and CS. It's satisfying to learn about the realm where they 
+        intersect, electronics and electric systems. 
+        I learned a lot of basic things relavent to my specific hardware stack and to using a 
+        multimeter correctly. 
+        I also learned that cheap electronics are bought in bulk making this project not very cheap at all.
+        The only thing that hurt me in this project were the agressive clips on the wire connectors I bought,
+        which snapped into place and hit my fingers a few times. Otherwise no injuries, electrocutions, or 
+        fires happened. (yet)
     </p>
 
-    <h2>status</h2>
-    <p class="muted">in progress — July</p>
+    <h2>Status</h2>
+    <p> Fully wired, tested end-to-end, 
+      and now living outside connected to the actual plants for the rest of the growing season.
+     I finished this early August 2026 and started in July, most of it got knocked out in two weekends
+     with little bits of wiring some evenings and a lot of nights where it wasn't top priority
+    </p>
+    <h2>Potential next steps</h2>
+    <p>
+      The current build is intentionally scoped to "get it working and watering," 
+      not to the fuller industrial-control-style architecture I'd originally sketched out
+      because I got hired to a full time position shortly after ordering my parts.
+      If I revisit this — particularly if I decide to pursue SCADA/OT integration roles
+      directly rather than stay in the financial tech sector, the natural next layer is:
+ 
+    - MQTT (Sparkplug B) so the ESP32 reports to a broker instead of running fully standalone
+    - A Raspberry Pi as an edge broker, controlling additional features like a camera for computer
+    vision monitoring of crops and connection to a server with Ignition for tag history, alarming, and dashboards
+    - Security layered in properly: WireGuard for remote access, TLS on MQTT, audit logging, documentation aligned with IEC 62443 and MITRE ATT&CK for ICS
+    A family member is currently building a large, commercial scale greenhouse, and if the timing and interest line up, 
+    this is a natural architecture to scale into something closer to that fuller vision 
+    more sensors, more zones, and the monitoring/remote-access layer this version 
+    deliberately left out for the sake of time and because it'd be a bit overkill for 4 plants.
+    </p>
 
+    <h2>Personal note</h2>
+    <p>
+      I have started ~many~ projects as a kid, teen, and now, but I've never really had a mentor, 
+      external guidance, or an accountability structure, so I typically got sidetracked, and full 
+      implementation hasn't happened. I'm proud to have followed through on this. 
+      That said, I have had support: 
+      Thanks to my Mom for letting me occupy the dining room table with my mess for a month,
+      Thanks to my Uncle for providing the ESP32 board (and unused Pi), multimeter, and the 
+      two moisture sensors that worked well.
+      Shout out to my coworker from IT who had an extra micro USB cable when I discovered 
+      the only one I had was charge only, permitting no data transfer to get the code onto the ESP.
+      Thanks to Claude/ Anthropic doing a free student promo, I was able to ask follow up questions and get pointed to clear 
+      resources, saving me from any mistakes that might've fried my board. Also a farewell to Claude as that free promo ends in a month. 
+      Shout out to all of the people who contribute to open source projects like Arduino and the various
+      nerds on the internet who's detailed blogs and articles I have referenced and which provided 
+      all the data AI companies have scraped to train their models on this niche.
+    </p>
   </main>
 
 </body>
